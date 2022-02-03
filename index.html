@@ -38,43 +38,29 @@
 	
 	<script>
 	
-		window.viewer = new Potree.Viewer(document.getElementById("potree_render_area"));
+	
+		window.viewer1 = new Potree.Viewer(document.getElementById("potree_render_area"));
 		
-		viewer.setEDLEnabled(true);
-		viewer.setFOV(60);
-		viewer.setPointBudget(2_000_000);
+		viewer1.setEDLEnabled(true);
+		viewer1.setFOV(60);
+		viewer1.setPointBudget(2_000_000);
 		<!-- INCLUDE SETTINGS HERE -->
-		viewer.loadSettingsFromURL();
+		viewer1.loadSettingsFromURL();
 		
-		viewer.setDescription("");
+		viewer1.setDescription("");
 		
-		viewer.loadGUI(() => {
-			viewer.setLanguage('en');
+		viewer1.loadGUI(() => {
+			viewer1.setLanguage('en');
 			$("#menu_appearance").next().show();
 			$("#menu_tools").next().show();
 			$("#menu_clipping").next().show();
-			viewer.toggleSidebar();
+			viewer1.toggleSidebar();
 		});
 		
 		
 
-		Potree.loadPointCloud("./pointclouds/Outside/metadata.json", "Outside", e => {
-			let scene = viewer.scene;
-			let pointcloud = e.pointcloud;
-			
-			let material = pointcloud.material;
-			material.size = 1;
-			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
-			material.shape = Potree.PointShape.SQUARE;
-			material.activeAttributeName = "rgba";
-			
-			scene.addPointCloud(pointcloud);
-			
-			viewer.fitToScreen();
-		});
-		
 		Potree.loadPointCloud("./pointclouds/Outside_Thermal/metadata.json", "Outside_Thermal", e => {
-			let scene = viewer.scene;
+			let scene = viewer1.scene;
 			let pointcloud = e.pointcloud;
 			
 			let material = pointcloud.material;
@@ -85,7 +71,22 @@
 			
 			scene.addPointCloud(pointcloud);
 			
-			viewer.fitToScreen();
+			viewer1.fitToScreen();
+		});
+
+		Potree.loadPointCloud("./pointclouds/Outside/metadata.json", "Outside", e => {
+			let scene = viewer1.scene;
+			let pointcloud = e.pointcloud;
+			
+			let material = pointcloud.material;
+			material.size = 1;
+			material.pointSizeType = Potree.PointSizeType.ADAPTIVE;
+			material.shape = Potree.PointShape.SQUARE;
+			material.activeAttributeName = "rgba";
+			
+			scene.addPointCloud(pointcloud);
+			
+			viewer1.fitToScreen();
 		});
 		
 		
